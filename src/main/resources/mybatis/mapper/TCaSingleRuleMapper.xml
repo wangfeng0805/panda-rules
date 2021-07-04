@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="org.wangfeng.panda.app.dao.mapper.TCaSingleRuleMapper">
+  <resultMap id="BaseResultMap" type="org.wangfeng.panda.app.dao.domain.TCaSingleRule">
+    <!--
+      WARNING - @mbg.generated
+    -->
+    <id column="id" jdbcType="BIGINT" property="id" />
+    <result column="business_id" jdbcType="BIGINT" property="businessId" />
+    <result column="rule_code" jdbcType="VARCHAR" property="ruleCode" />
+    <result column="rule_name" jdbcType="VARCHAR" property="ruleName" />
+    <result column="rule_remark" jdbcType="VARCHAR" property="ruleRemark" />
+    <result column="rule_category" jdbcType="SMALLINT" property="ruleCategory" />
+    <result column="status" jdbcType="SMALLINT" property="status" />
+    <result column="out_put_code" jdbcType="VARCHAR" property="outPutCode" />
+    <result column="out_put_name" jdbcType="VARCHAR" property="outPutName" />
+    <result column="out_put_type" jdbcType="SMALLINT" property="outPutType" />
+    <result column="out_put_format" jdbcType="VARCHAR" property="outPutFormat" />
+    <result column="conditional_expression" jdbcType="SMALLINT" property="conditionalExpression" />
+    <result column="single_value_operation" jdbcType="SMALLINT" property="singleValueOperation" />
+    <result column="show_rule_expression" jdbcType="VARCHAR" property="showRuleExpression" />
+    <result column="real_rule_expression" jdbcType="VARCHAR" property="realRuleExpression" />
+    <result column="modified_time" jdbcType="TIMESTAMP" property="modifiedTime" />
+    <result column="modified_by" jdbcType="VARCHAR" property="modifiedBy" />
+    <result column="created_time" jdbcType="TIMESTAMP" property="createdTime" />
+    <result column="created_by" jdbcType="VARCHAR" property="createdBy" />
+    <result column="delete_flag" jdbcType="SMALLINT" property="deleteFlag" />
+  </resultMap>
+</mapper>

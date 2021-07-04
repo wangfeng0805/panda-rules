@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="org.wangfeng.panda.app.dao.mapper.TCaDecisionVariableMapper">
+    <resultMap id="BaseResultMap" type="org.wangfeng.panda.app.dao.domain.TCaDecisionVariable">
+        <!--
+          WARNING - @mbg.generated
+        -->
+        <id column="id" property="id" jdbcType="BIGINT"/>
+        <result column="variable_code" property="variableCode" jdbcType="VARCHAR"/>
+        <result column="decision_variable_name" property="decisionVariableName" jdbcType="VARCHAR"/>
+        <result column="variable_type" property="variableType" jdbcType="SMALLINT"/>
+        <result column="enum_data_range" property="enumDataRange" jdbcType="VARCHAR"/>
+        <result column="variable_length" property="variableLength" jdbcType="INTEGER"/>
+        <result column="decision_variable_default_value" property="decisionVariableDefaultValue" jdbcType="VARCHAR"/>
+        <result column="param_source" property="paramSource" jdbcType="SMALLINT"/>
+        <result column="variable_category" property="variableCategory" jdbcType="SMALLINT"/>
+        <result column="decision_variable_remark" property="decisionVariableRemark" jdbcType="VARCHAR"/>
+        <result column="business_id" property="businessId" jdbcType="BIGINT"/>
+        <result column="decision_variable_flag" property="decisionVariableFlag" jdbcType="SMALLINT"/>
+        <result column="modified_time" property="modifiedTime" jdbcType="TIMESTAMP"/>
+        <result column="modified_by" property="modifiedBy" jdbcType="VARCHAR"/>
+        <result column="created_time" property="createdTime" jdbcType="TIMESTAMP"/>
+        <result column="created_by" property="createdBy" jdbcType="VARCHAR"/>
+        <result column="delete_flag" property="deleteFlag" jdbcType="SMALLINT"/>
+        <result column="status" property="status" jdbcType="SMALLINT"/>
+    </resultMap>
+</mapper>
