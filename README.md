@@ -11,6 +11,6 @@ As we have serveral buttons in the page:**Close(关闭),Delete(删除),Edit(编�
 ![image](https://user-images.githubusercontent.com/33925464/146675830-fc48e4b4-6af0-4ac1-8d99-ee0a62099900.png)
 When we want check whether current user can click the **Close(关闭)** button or not,the editor may be:
 ![image](https://user-images.githubusercontent.com/33925464/146675632-7038c82c-7489-42c2-8e57-fac5667251ff.png)
-Actually support engineer can alter the logic just by changing the lines simply, nothing code involved,really cool and amazing!
+Actually support engineer can alter the logic just by editing the lines simply, nothing code involved,really cool and amazing!
 
 
