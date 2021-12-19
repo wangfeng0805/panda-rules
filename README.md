@@ -9,7 +9,7 @@ Panda ruler is the simple, clear rules engine tool dev by Java with user-friendl
 
 As we have serveral buttons in the page:**Close(关闭),Delete(删除),Edit(编辑)** as the follow snapshot:
 ![image](https://user-images.githubusercontent.com/33925464/146675830-fc48e4b4-6af0-4ac1-8d99-ee0a62099900.png)
-When we want check whether current user can click the **Close** button or not,the editor will be:
+When we want check whether current user can click the **Close(关闭)** button or not,the editor will be:
 ![image](https://user-images.githubusercontent.com/33925464/146675632-7038c82c-7489-42c2-8e57-fac5667251ff.png)
 
 
