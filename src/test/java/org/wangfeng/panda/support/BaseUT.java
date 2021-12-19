@@ -10,11 +10,11 @@ import org.springframework.test.context.junit4.SpringRunner;
 
 /**
  * User: wangfeng
- * Date: 2020/8/26
+ * Date: 2021/8/26
  */
 @RunWith(SpringRunner.class)
 @SpringBootTest(classes = PandaAppApplication.class)
-@ActiveProfiles("dev")
+@ActiveProfiles("fat")
 @ImportResource(locations = {"classpath:config/spring-jsf-consumer.xml"})
 public class BaseUT extends AppBaseService {
 }
