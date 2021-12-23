@@ -147,7 +147,6 @@ public class JSEngineCalculation {
         return functions.size();
     }
 
-
     /**
      * JS计算
      *
@@ -191,13 +190,7 @@ public class JSEngineCalculation {
         }
     }
 
-
-
-
-
 /*-------------------------------------------以下是2.0之后的计算逻辑，以对象的形式，而不是以字符串的形式---------------------------------------------*/
-
-
 
     /**
      * 计算多行

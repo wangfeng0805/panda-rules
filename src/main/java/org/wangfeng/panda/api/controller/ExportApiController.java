@@ -51,28 +51,6 @@ public class ExportApiController extends AppBaseController {
     @Autowired
     private ImportRuleTreeService importRuleTreeService;
 
-
-
-
-
-
-//    @GetMapping(value = "/exportAll")
-//    @ResponseBody
-//    public void export2(){
-//        try {
-//            exportBaseService.exportAll();
-//        } catch (ClassNotFoundException e) {
-//            log.error("类获取异常！");
-//        } catch (IllegalAccessException e) {
-//            e.printStackTrace();
-//        } catch (InstantiationException e) {
-//            e.printStackTrace();
-//        }catch (Exception e){
-//            e.printStackTrace();
-//        }
-//    }
-
-
     /* ------------------------------------------- 决策变量的导入导出开始 -------------------------------------------  */
 
 

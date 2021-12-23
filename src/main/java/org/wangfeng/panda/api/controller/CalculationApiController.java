@@ -1,5 +1,6 @@
 package org.wangfeng.panda.api.controller;
 
+import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.JSONObject;
 import org.wangfeng.panda.api.enums.ResponseStatusEnum;
 import org.wangfeng.panda.app.common.base.AppBaseController;
@@ -58,15 +59,15 @@ public class CalculationApiController extends AppBaseController {
 
         //2、计算结果，如果有异常，则返回错误
         try {
-            log.info("传入的参数是：" + id + jsonObject.toJSONString());
+            log.info("单个规则的运算，传入的参数是：{}，{}",id,JSON.toJSONString(jsonObject));
             JSONObject result = singleRuleService.calculateByIdORCode(id, null,jsonObject);
-            log.info("计算的结果是：" + result.toJSONString());
+            log.info("单个规则的运算，计算的结果是：{}", JSON.toJSONString(result));
             return new ResponseEntity(ok(ResponseStatusEnum.CALCULATE_SUCCESS.getMessage(), ResponseStatusEnum.CALCULATE_SUCCESS.getCode(), result), HttpStatus.OK);
         } catch (RuleRuntimeException ruleException) {
-            log.error("计算失败！" + ruleException.getMessage());
+            log.error("单个规则的运算，计算异常：{}，{}",id,JSON.toJSONString(jsonObject),ruleException);
             return new ResponseEntity(fail(ruleException.getMessage(), ResponseStatusEnum.CALCULATE_RESULT_ERROR.getCode(), null), HttpStatus.OK);
         } catch (Exception exception) {
-            log.error("计算失败！" + exception.getMessage(), exception);
+            log.error("单个规则的运算，系统异常：{}，{}",id,JSON.toJSONString(jsonObject),exception);
             return new ResponseEntity(fail(ResponseStatusEnum.CALCULATE_RESULT_ERROR.getMessage(), ResponseStatusEnum.CALCULATE_RESULT_ERROR.getCode(), null), HttpStatus.OK);
         }
 
@@ -99,9 +100,8 @@ public class CalculationApiController extends AppBaseController {
             return new ResponseEntity(fail(ResponseStatusEnum.CALCULATE_ARGS_ERROR.getMessage(), ResponseStatusEnum.CALCULATE_ARGS_ERROR.getCode(), null), HttpStatus.OK);
         }
 
-
         try {
-            log.info("传入的参数是：" + idList + jsonObject.toJSONString());
+            log.info("多个规则并行运算，传入的参数是：{}，{}",idList,JSON.toJSONString(jsonObject));
 
             //2、拆分对应的idList获取所有的规则的ID
             String[] arr = idList.split(",");
@@ -112,17 +112,16 @@ public class CalculationApiController extends AppBaseController {
             //3、计算结果，如果有异常，则返回错误
             JSONObject result = singleRuleService.calculateByIdList(list, jsonObject);
 
-            log.info("计算的结果是：" + result.toJSONString());
+            log.info("多个规则并行运算，计算的结果是：{}，{}，{}",idList,JSON.toJSONString(jsonObject),JSON.toJSONString(result));
 
             return new ResponseEntity(ok(ResponseStatusEnum.CALCULATE_SUCCESS.getMessage(), ResponseStatusEnum.CALCULATE_SUCCESS.getCode(), result), HttpStatus.OK);
         } catch (RuleRuntimeException ruleException) {
-            log.error("计算失败！" + ruleException.getMessage());
+            log.info("多个规则并行运算，计算异常：{}，{}",idList,JSON.toJSONString(jsonObject),ruleException);
             return new ResponseEntity(fail(ruleException.getMessage(), ResponseStatusEnum.CALCULATE_RESULT_ERROR.getCode(), null), HttpStatus.OK);
         } catch (Exception exception) {
-            log.error("计算失败！" + exception.getMessage(), exception);
+            log.info("多个规则并行运算，系统异常：{}，{}",idList,JSON.toJSONString(jsonObject),exception);
             return new ResponseEntity(fail(ResponseStatusEnum.CALCULATE_RESULT_ERROR.getMessage(), ResponseStatusEnum.CALCULATE_RESULT_ERROR.getCode(), null), HttpStatus.OK);
         }
-
     }
 
 
@@ -154,19 +153,17 @@ public class CalculationApiController extends AppBaseController {
 
         //2、计算结果，如果有异常，则返回错误
         try {
-            log.info("传入的参数是：" + id + jsonObject.toJSONString());
+            log.info("单个规则集的运算，传入的参数是：{}，{}",id,JSON.toJSONString(jsonObject));
             JSONObject result = ruleListService.calculateRuleListByIdORCode(id,null, jsonObject);
-            log.info("计算的结果是：" + result.toJSONString());
+            log.info("单个规则集的运算，计算的结果是：{}，{}",id,JSON.toJSONString(jsonObject));
             return new ResponseEntity(ok(ResponseStatusEnum.CALCULATE_SUCCESS.getMessage(), ResponseStatusEnum.CALCULATE_SUCCESS.getCode(), result), HttpStatus.OK);
         } catch (RuleRuntimeException ruleException) {
-            log.error("计算失败！" + ruleException.getMessage());
+            log.info("单个规则集的运算，计算异常：{}，{}",id,JSON.toJSONString(jsonObject),ruleException);
             return new ResponseEntity(fail(ruleException.getMessage(), ResponseStatusEnum.CALCULATE_RESULT_ERROR.getCode(), null), HttpStatus.OK);
         } catch (Exception exception) {
-            log.error("计算失败！" + exception.getMessage(), exception);
+            log.info("单个规则集的运算，系统异常：{}，{}",id,JSON.toJSONString(jsonObject),exception);
             return new ResponseEntity(fail(ResponseStatusEnum.CALCULATE_RESULT_ERROR.getMessage(), ResponseStatusEnum.CALCULATE_RESULT_ERROR.getCode(), null), HttpStatus.OK);
         }
-
-
     }
 
 
@@ -195,80 +192,16 @@ public class CalculationApiController extends AppBaseController {
 
         //2、计算结果，如果有异常，则返回错误
         try {
-            log.info("传入的参数是：" + id + jsonObject.toJSONString());
+            log.info("单个规则树的运算，传入的参数是：{}，{}",id,JSON.toJSONString(jsonObject));
             JSONObject result = ruleTreeService.calculateRuleTreeById(id, jsonObject);
-            log.info("计算的结果是：" + result.toJSONString());
+            log.info("单个规则树的运算，计算的结果是：{}，{}",id,JSON.toJSONString(jsonObject));
             return new ResponseEntity(ok(ResponseStatusEnum.CALCULATE_SUCCESS.getMessage(), ResponseStatusEnum.CALCULATE_SUCCESS.getCode(), result), HttpStatus.OK);
         } catch (RuleRuntimeException ruleException) {
-            log.error("计算失败！" + ruleException.getMessage());
+            log.info("单个规则树的运算，计算异常：{}，{}",id,JSON.toJSONString(jsonObject),ruleException);
             return new ResponseEntity(fail(ruleException.getMessage(), ResponseStatusEnum.CALCULATE_RESULT_ERROR.getCode(), null), HttpStatus.OK);
         } catch (Exception exception) {
-            log.error("计算失败！" + exception.getMessage(), exception);
+            log.info("单个规则树的运算，系统异常：{}，{}",id,JSON.toJSONString(jsonObject),exception);
             return new ResponseEntity(fail(ResponseStatusEnum.CALCULATE_RESULT_ERROR.getMessage(), ResponseStatusEnum.CALCULATE_RESULT_ERROR.getCode(), null), HttpStatus.OK);
         }
-
-
     }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-//    /**
-//     * 单个规则树的运算逻辑
-//     * 传入对应的规则树的ID和所需json格式的参数
-//     *
-//     * @param id
-//     * @param jsonObject
-//     * @return
-//     */
-//    @PostMapping(value = "/calculateByRuleTreeId2", produces = {"application/json"})
-//    public ResponseEntity calculateByRuleTreeId2(
-//            @ApiParam(value = "规则ID", required = true) @RequestParam Long id,
-//            @ApiParam(value = "参数", required = true) @RequestBody JSONObject jsonObject) {
-//
-//        //1、判断，当传入参数不满足要求的时候，返回错误
-//        if (id == null || jsonObject == null) {
-//            return new ResponseEntity(fail(ResponseStatusEnum.CALCULATE_ARGS_ERROR.getMessage(), ResponseStatusEnum.CALCULATE_ARGS_ERROR.getCode(), null), HttpStatus.OK);
-//        }
-//
-//        //2、计算结果，如果有异常，则返回错误
-//        try {
-//            log.info("传入的参数是：" + id + jsonObject.toJSONString());
-//            JSONObject result = ruleTreeService.calculateRuleTreeById2(id, jsonObject);
-//            log.info("计算的结果是：" + result.toJSONString());
-//            return new ResponseEntity(ok(ResponseStatusEnum.CALCULATE_SUCCESS.getMessage(), ResponseStatusEnum.CALCULATE_SUCCESS.getCode(), result), HttpStatus.OK);
-//        } catch (RuleRuntimeException ruleException) {
-//            log.error("计算失败！" + ruleException.getMessage());
-//            return new ResponseEntity(fail(ruleException.getMessage(), ResponseStatusEnum.CALCULATE_RESULT_ERROR.getCode(), null), HttpStatus.OK);
-//        } catch (Exception exception) {
-//            log.error("计算失败！" + exception.getMessage(), exception);
-//            return new ResponseEntity(fail(ResponseStatusEnum.CALCULATE_RESULT_ERROR.getMessage(), ResponseStatusEnum.CALCULATE_RESULT_ERROR.getCode(), null), HttpStatus.OK);
-//        }
-//
-//
-//    }
-
-
-
 }
