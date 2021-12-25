@@ -1,5 +1,6 @@
 package org.wangfeng.panda.app.service.impl;
 
+import com.alibaba.fastjson.JSON;
 import com.github.pagehelper.Page;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.BeanUtils;
@@ -32,6 +33,7 @@ public class BusinessLineServiceImpl extends AppBaseService implements BusinessL
      */
     @Override
     public Paginate queryPagenate(TCaBusinessLineVO tCaBusinessLineVO, Integer pageNo, Integer pageSize) {
+        log.info("查询列表页，开始：{}，{}，{}", JSON.toJSONString(tCaBusinessLineVO),JSON.toJSONString(pageNo),JSON.toJSONString(pageSize));
         //1、增加分页参数
         this.setPage(pageNo, pageSize);
         //2、去除%等特殊字符的影响

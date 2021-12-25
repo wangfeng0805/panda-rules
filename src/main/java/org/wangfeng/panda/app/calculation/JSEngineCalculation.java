@@ -1,5 +1,6 @@
 package org.wangfeng.panda.app.calculation;
 
+import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.JSONObject;
 import lombok.extern.slf4j.Slf4j;
 import org.wangfeng.panda.app.cache.SpringUtil;
@@ -42,7 +43,7 @@ public class JSEngineCalculation {
      */
 
     public static Object calculate(String expressionStr, JSONObject jsonObject) {
-
+        log.info("引擎计算，开始：{}，{}",expressionStr, JSON.toJSONString(jsonObject));
         //1、第一步解析，转化内置操作，即把自定义的方法（FUNC开头的方法）执行，并且返回结果替换到表达式内。
         //方法都是[[]]包起来，并且执行。
 
@@ -83,14 +84,14 @@ public class JSEngineCalculation {
                     args.toArray(strings);
                     result = m.invoke(obj, (Object) strings);
                 } catch(RuleRuntimeException e){
-                    log.error("单个计算错误，错误信息：{}，表达式是：{}",e.getMessage(),expressionStr);
+                    log.info("引擎计算，错误信息：{}，{}",expressionStr, JSON.toJSONString(jsonObject),e);
                     throw new RuleRuntimeException(e.getMessage());
                 }catch (InvocationTargetException e){
                     String errorMsg = ((InvocationTargetException) e).getTargetException().getMessage();
-                    log.error("反射计算错误！" + errorMsg);
+                    log.info("引擎计算，反射计算错误：{}，{}",expressionStr, JSON.toJSONString(jsonObject),e);
                     throw new RuleRuntimeException(errorMsg);
                 }catch (Exception e) {
-                    log.error("获取方法和类出错！" + e.getMessage());
+                    log.info("引擎计算，获取方法和类出错：{}，{}",expressionStr, JSON.toJSONString(jsonObject),e);
                     throw new RuleRuntimeException("获取方法和类出错！");
                 }
 
@@ -98,9 +99,7 @@ public class JSEngineCalculation {
                     result = "\""+ DateUtils.getString((Date) result,DateUtils.DEFAULT_FORMAT)+"\"";
                 }
                 expressionStr = expressionStr.replace("[["+function+"]]",result.toString());
-
             }
-
         }
 
         //第二步解析，传入参数
@@ -121,9 +120,10 @@ public class JSEngineCalculation {
 
         try {
             Object calculateResult = jsCalculate(expressionStr);
+            log.info("引擎计算，结束：{}，{}，{}",expressionStr, JSON.toJSONString(jsonObject),JSON.toJSONString(calculateResult));
             return calculateResult;
         } catch (Exception e) {
-            log.error(e.getMessage(), e);
+            log.error("引擎计算，系统异常：{}，{}",expressionStr, JSON.toJSONString(jsonObject),e);
             throw new RuleRuntimeException("规则运算异常!");
         }
 

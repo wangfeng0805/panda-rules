@@ -1,5 +1,6 @@
 package org.wangfeng.panda.app.service.impl;
 
+import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.JSONObject;
 import com.github.pagehelper.Page;
 import lombok.extern.slf4j.Slf4j;
@@ -91,6 +92,7 @@ public class SingleRuleServiceImpl extends AppBaseService implements SingleRuleS
      */
     @Override
     public TCaSingleRuleVO getById(Long id) {
+        log.info("根据ID查询对应的规则对象，开始：{}", id);
 
         //0、从redis中取值
         TCaSingleRuleVO tCaSingleRuleVO = null;
@@ -128,6 +130,7 @@ public class SingleRuleServiceImpl extends AppBaseService implements SingleRuleS
         //4、保存到redis中
 //        cacheClient.setObject(RedisKey.SINGLE_RULE+id,tCaSingleRuleVO);
 //        cacheClient.expire(RedisKey.SINGLE_RULE+id,Constants.INTEGER_3600);
+        log.info("根据ID查询对应的规则对象，返回：{}", JSON.toJSONString(tCaSingleRuleVO));
 
         return tCaSingleRuleVO;
     }

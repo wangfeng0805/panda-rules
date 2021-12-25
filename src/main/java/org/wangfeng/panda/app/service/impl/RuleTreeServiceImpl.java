@@ -272,7 +272,7 @@ public class RuleTreeServiceImpl extends AppBaseService implements RuleTreeServi
     public JSONObject calculateRuleTreeById(Long id,JSONObject jsonObject) {
         //1、获取对应的决策树
         TCaRuleTreeVO tCaRuleTreeVO = getById(id);
-        log.info("获取到对应的决策树：{}",new Gson().toJson(tCaRuleTreeVO));
+        log.info("通过决策树ID进行计算，开始：{}",new Gson().toJson(tCaRuleTreeVO));
 
         //2、把所有的node拼装成一个map
         List<TCaRuleTreeNodeVO> tCaRuleTreeNodeList = tCaRuleTreeVO.getNodes();
@@ -353,6 +353,7 @@ public class RuleTreeServiceImpl extends AppBaseService implements RuleTreeServi
 
         }
         log.info("结束进行递归运算====================================");
+        log.info("通过决策树ID进行计算，结束：{}",new Gson().toJson(result));
 
         //4、返回最后的计算的返回的值
         return result;
