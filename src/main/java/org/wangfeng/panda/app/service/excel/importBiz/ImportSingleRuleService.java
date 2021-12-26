@@ -1,5 +1,6 @@
 package org.wangfeng.panda.app.service.excel.importBiz;
 
+import com.alibaba.fastjson.JSON;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.scheduling.annotation.Async;
@@ -48,13 +49,11 @@ public class ImportSingleRuleService extends ExportBaseService {
                                  String businessCode,
                                  List<String> errorCodeList) {
 
-        log.info("========================== import all single rule start ==========================");
+        log.info("import all single rule start，{}，{}，{}", JSON.toJSONString(importMap),JSON.toJSONString(businessCode),JSON.toJSONString(errorCodeList));
 
         List<TCaSingleRule> ruleList = importMap.get(ExportTypeEnum.SINGLE_RULE_EXPORT.getClassName());
         List<TCaRuleLine> lineList = importMap.get(ExportTypeEnum.RULE_LINE_EXPORT.getClassName());
         List<TCaCellVariable> cellList = importMap.get(ExportTypeEnum.CELL_VARIABLE_EXPORT.getClassName());
-
-        log.info("========================== import single rule start ==========================");
 
         //2、批量插入规则
         //2.1、先批量处理rule_code，businessCode，out_put_code
@@ -86,11 +85,6 @@ public class ImportSingleRuleService extends ExportBaseService {
             }
         }
 
-        log.info("========================== import single rule end ==========================");
-
-        log.info("========================== import rule line start ==========================");
-
-
         //3、批量插入行
         //3.1、先批量处理line_code,business_code,rule_code
         lineList.parallelStream().forEach(line -> {
@@ -113,6 +107,8 @@ public class ImportSingleRuleService extends ExportBaseService {
                 .collect(Collectors.toList())
         );
 
+        log.info("import all single rule finalLineList，{}，{}，{}", JSON.toJSONString(importMap),JSON.toJSONString(businessCode),JSON.toJSONString(finalLineList));
+
         //3.4、导入所有的剩余的行
         StringBuffer lineInfo = new StringBuffer();
         ruleLineService.batchInsertNotExist(finalLineList,lineInfo);
@@ -122,11 +118,6 @@ public class ImportSingleRuleService extends ExportBaseService {
                 errorLineCodeList.add(s);
             }
         }
-
-        log.info("========================== import rule line end ==========================");
-
-
-        log.info("========================== import line cell start ==========================");
 
         //4、批量插入格子
         //4.1、先批量处理cell_variable_code、rule_line_cdoe、business_code
@@ -140,6 +131,8 @@ public class ImportSingleRuleService extends ExportBaseService {
                 cell.setRuleLineCode(ruleLineCode);
             }
         });
+
+        log.info("import all single rule cellList，{}，{}，{}", JSON.toJSONString(importMap),JSON.toJSONString(businessCode),JSON.toJSONString(cellList));
 
         //4.2、过滤掉报错的行
         List<TCaCellVariable> finalCellList = cellList.stream().filter(c -> !errorLineCodeList.contains(c.getRuleLineCode())).collect(Collectors.toList());
@@ -155,8 +148,6 @@ public class ImportSingleRuleService extends ExportBaseService {
         //4.4、导入所有的剩余的格子
         StringBuffer cellInfo = new StringBuffer();
         cellVariableService.batchInsertNotExist(finalCellList,cellInfo);
-
-        log.info("========================== import line cell end ==========================");
 
         //5、报错信息，打印到日志
         if(errorRuleCodeList!=null && errorRuleCodeList.size()>0){
@@ -192,8 +183,6 @@ public class ImportSingleRuleService extends ExportBaseService {
             log.error(cellSb.toString());
 
         }
-
-        log.info("========================== import all single rule end ==========================");
 
     }
 

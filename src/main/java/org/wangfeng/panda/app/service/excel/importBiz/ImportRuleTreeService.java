@@ -1,5 +1,6 @@
 package org.wangfeng.panda.app.service.excel.importBiz;
 
+import com.alibaba.fastjson.JSON;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.scheduling.annotation.Async;
@@ -49,15 +50,12 @@ public class ImportRuleTreeService extends ExportBaseService {
     public void importRuleTree(Map<String,List> importMap,
                                String businessCode,
                                List<String> errorRuleTreeCodeList){
-        log.info("========================== import all rule tree start ==========================");
-
+        log.info("import all rule tree，{}，{}，{}", JSON.toJSONString(importMap),JSON.toJSONString(businessCode),JSON.toJSONString(errorRuleTreeCodeList));
 
         //1、先获取所有的List
         List<TCaRuleTree> treeList = importMap.get(ExportTypeEnum.RULE_TREE_EXPORT.getClassName());
         List<TCaRuleTreeNode> treeNodeList = importMap.get(ExportTypeEnum.RULE_TREE_NODE_EXPORT.getClassName());
         List<TCaRuleTreeMapping> treeMappingList = importMap.get(ExportTypeEnum.RULE_TREE_MAPPING_EXPORT.getClassName());
-
-        log.info("========================== import rule tree start ==========================");
 
         //2、插入决策树开始
         //2.1、先进行tree的businessCode和ruleTreeCode的更改
@@ -69,6 +67,7 @@ public class ImportRuleTreeService extends ExportBaseService {
             }
         });
 
+        log.info("import all rule treeList，{}，{}，{}", JSON.toJSONString(importMap),JSON.toJSONString(businessCode),JSON.toJSONString(treeList));
 
         //2.2、把决策树中的错误的集合，删除掉
         List<TCaRuleTree> finalTreeList = treeList.stream().filter(tree -> !errorRuleTreeCodeList.contains(tree.getRuleTreeCode())).collect(Collectors.toList());
@@ -82,11 +81,6 @@ public class ImportRuleTreeService extends ExportBaseService {
                 errorRuleTreeCodeList.add(s);
             }
         }
-
-        log.info("========================== import rule tree end ==========================");
-
-        log.info("========================== import rule tree node start ==========================");
-
 
         //3、批量插入tree_node
         //3.1、先进行node的 rule_tree_code 和 node_rule_code的变更
@@ -127,11 +121,6 @@ public class ImportRuleTreeService extends ExportBaseService {
                 errorRuleTreeNodeCodeList.add(s);
             }
         }
-
-        log.info("========================== import rule tree node end ==========================");
-
-        log.info("========================== import rule tree mapping start ==========================");
-
 
         //4、批量插入tree_mapping
         //4.1、先进行mapping的rule_tree_code的变更

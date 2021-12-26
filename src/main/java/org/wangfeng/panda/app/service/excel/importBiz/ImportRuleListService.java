@@ -1,5 +1,6 @@
 package org.wangfeng.panda.app.service.excel.importBiz;
 
+import com.alibaba.fastjson.JSON;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.scheduling.annotation.Async;
@@ -46,13 +47,11 @@ public class ImportRuleListService extends ExportBaseService {
                                String businessCode,
                                List<String> errorRuleListCodeList){
 
-        log.info("========================== import all rule list start ==========================");
+        log.info("import all rule rulelist，{}，{}，{}", JSON.toJSONString(importMap),JSON.toJSONString(businessCode),JSON.toJSONString(errorRuleListCodeList));
 
         //1、先获取所有的List
         List<TCaRuleList> ruleListList = importMap.get(ExportTypeEnum.RULE_LIST_EXPORT.getClassName());
         List<TCaRuleListMapping> ruleListMappingList = importMap.get(ExportTypeEnum.RULE_LIST_MAPPING_EXPORT.getClassName());
-
-        log.info("========================== import rule list start ==========================");
 
         //2、批量插入list
         //2.1、先批量处理businessCode，rule_list_code
@@ -78,9 +77,8 @@ public class ImportRuleListService extends ExportBaseService {
             }
         }
 
-        log.info("========================== import rule list end ==========================");
+        log.info("import all rule rulelist，{}，{}，{}", JSON.toJSONString(importMap),JSON.toJSONString(businessCode),JSON.toJSONString(listInfo));
 
-        log.info("========================== import rule list mapping start ==========================");
 
         //3、批量插入list_mapping
         //3.1、先批量处理rule_code，rule_list_code
