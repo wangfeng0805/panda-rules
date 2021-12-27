@@ -1,5 +1,6 @@
 package org.wangfeng.panda.app.service.excel.exportBiz;
 
+import com.alibaba.fastjson.JSON;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.poi.xssf.usermodel.XSSFWorkbook;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -41,6 +42,7 @@ public class ExportSingleRuleService extends ExportBaseService{
      * @param wb
      */
     public void exportSingleRule(List<String> codeList,XSSFWorkbook wb){
+        log.info("exportSingleRule，开始，{}，{}", JSON.toJSONString(codeList),JSON.toJSONString(wb));
 
         List<TCaSingleRule> exportRuleList = new ArrayList<>();
         List<TCaRuleLine> exportRuleLineList = new ArrayList<>();
@@ -76,6 +78,7 @@ public class ExportSingleRuleService extends ExportBaseService{
             exportRuleLineList.addAll(subRuleLineList);
         }
 
+        log.info("exportSingleRule，subRuleLineList，{}，{}", JSON.toJSONString(codeList),JSON.toJSONString(exportRuleLineList));
 
         //3、找出所有的格子
         Set<String> lineCodeSet = new TreeSet<>();
@@ -98,6 +101,7 @@ public class ExportSingleRuleService extends ExportBaseService{
             exportCellList.addAll(subCellVaiableList);
         }
 
+        log.info("exportSingleRule，subCellVaiableList，{}，{}", JSON.toJSONString(codeList),JSON.toJSONString(exportCellList));
 
         //4、得到sheet页面的header，并生成excel
         String ruleSheetName = ExportTypeEnum.SINGLE_RULE_EXPORT.getCNName();

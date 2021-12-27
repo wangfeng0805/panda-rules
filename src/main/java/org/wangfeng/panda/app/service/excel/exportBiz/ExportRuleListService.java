@@ -1,5 +1,6 @@
 package org.wangfeng.panda.app.service.excel.exportBiz;
 
+import com.alibaba.fastjson.JSON;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.poi.xssf.usermodel.XSSFWorkbook;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -33,6 +34,7 @@ public class ExportRuleListService extends ExportBaseService{
      * @param wb
      */
     public Map<String,List> exportRuleList(List<String> codeList, XSSFWorkbook wb){
+        log.info("exportRuleList，开始，{}，{}", JSON.toJSONString(codeList),JSON.toJSONString(wb));
 
         //1、创建新的对象
         List<TCaRuleList> exportRuleListList = new ArrayList<>();
@@ -66,6 +68,7 @@ public class ExportRuleListService extends ExportBaseService{
             }
 
         }
+        log.info("exportRuleList，中间数据，{}，{}，{}", JSON.toJSONString(codeList),JSON.toJSONString(exportRuleListMappingList),JSON.toJSONString(exportRuleListList));
 
         //4、得到sheet页面的header，并生成excel
         String ruleListSheetName = ExportTypeEnum.RULE_LIST_EXPORT.getCNName();
@@ -83,6 +86,7 @@ public class ExportRuleListService extends ExportBaseService{
             put("ruleCodeList",ruleCodeList);
         }};
 
+        log.info("exportRuleList，返回，{}，{}", JSON.toJSONString(codeList),JSON.toJSONString(resultMap));
         return resultMap;
 
     }

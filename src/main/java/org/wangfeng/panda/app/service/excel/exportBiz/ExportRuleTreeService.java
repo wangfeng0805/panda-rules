@@ -1,5 +1,6 @@
 package org.wangfeng.panda.app.service.excel.exportBiz;
 
+import com.alibaba.fastjson.JSON;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.poi.xssf.usermodel.XSSFWorkbook;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -39,6 +40,8 @@ public class ExportRuleTreeService extends ExportBaseService{
      */
     public Map<String,List> exportRuleTree(List<String> codeList, XSSFWorkbook wb){
 
+        log.info("exportRuleTree，开始，{}，{}", JSON.toJSONString(codeList),JSON.toJSONString(wb));
+
         //1、创建新的对象
         List<TCaRuleTree> exportTreeList = new ArrayList<>();
         List<TCaRuleTreeNode> exportNodeList = new ArrayList<>();
@@ -75,6 +78,8 @@ public class ExportRuleTreeService extends ExportBaseService{
 
         }
 
+        log.info("exportRuleTree，中间数据，{}，{}，{}，{}", JSON.toJSONString(codeList),JSON.toJSONString(exportTreeList),JSON.toJSONString(exportNodeList),JSON.toJSONString(exportMappingList));
+
         //4、得到sheet页面的header，并生成excel
         String ruleTreeSheetName = ExportTypeEnum.RULE_TREE_EXPORT.getCNName();
         List<String> ruleTreeHeaders = ExcelUtil.getHeaders(TCaRuleTree.class);
@@ -95,6 +100,7 @@ public class ExportRuleTreeService extends ExportBaseService{
             put("ruleCodeList",ruleCodeList);
             put("ruleListCodeList",ruleListCodeList);
         }};
+        log.info("exportRuleTree，返回数据，{}，{}", JSON.toJSONString(codeList),JSON.toJSONString(resultMap));
 
         return resultMap;
 
