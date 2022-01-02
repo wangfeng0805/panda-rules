@@ -21,7 +21,7 @@ public class SpringUtil implements ApplicationContextAware {
     }
 
     /**
-     *
+     * 获取注册bean
      */
     public static <T> T getBean(Class<T> requiredType) {
         return applicationContext.getBean(requiredType);

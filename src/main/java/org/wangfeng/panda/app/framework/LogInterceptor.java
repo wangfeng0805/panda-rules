@@ -9,6 +9,9 @@ import org.wangfeng.panda.app.util.IpUtils;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+/**
+ * 日志拦截器
+ */
 @Slf4j
 public class LogInterceptor implements HandlerInterceptor {
     @Override
@@ -16,7 +19,7 @@ public class LogInterceptor implements HandlerInterceptor {
         try {
             String apiName = ((HandlerMethod) handler).getMethod().getName();
             String className = ((HandlerMethod) handler).getMethod().getDeclaringClass().getName();
-            log.info("enter,call method  {} , class {} ,ip {} ", apiName, className, IpUtils.getIpFromRequest(httpServletRequest));
+            log.info("preHandle,call method  {} , class {} ,ip {} ", apiName, className, IpUtils.getIpFromRequest(httpServletRequest));
         } catch (Exception enterException) {
 
         }
@@ -33,7 +36,7 @@ public class LogInterceptor implements HandlerInterceptor {
         try {
             String apiName = ((HandlerMethod) handler).getMethod().getName();
             String className = ((HandlerMethod) handler).getMethod().getDeclaringClass().getName();
-            log.info("exit ,call method  {} , class {} ,ip {}  ", apiName,className, IpUtils.getIpFromRequest(httpServletRequest));
+            log.info("afterCompletion ,call method  {} , class {} ,ip {}  ", apiName,className, IpUtils.getIpFromRequest(httpServletRequest));
         } catch (Exception exitException) {
 
         }

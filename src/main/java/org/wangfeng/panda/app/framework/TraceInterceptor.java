@@ -1,5 +1,6 @@
 package org.wangfeng.panda.app.framework;
 
+import com.alibaba.fastjson.JSON;
 import lombok.extern.slf4j.Slf4j;
 import org.slf4j.MDC;
 import org.springframework.web.servlet.HandlerInterceptor;
@@ -14,6 +15,7 @@ import java.util.UUID;
 public class TraceInterceptor implements HandlerInterceptor {
     @Override
     public boolean preHandle(HttpServletRequest httpServletRequest, HttpServletResponse httpServletResponse, Object o) throws Exception {
+        log.info("TraceInterceptor轨迹拦截器：{}，{}", JSON.toJSONString(httpServletRequest),JSON.toJSONString(httpServletResponse));
         String requestId = String.valueOf(UUID.randomUUID());
         MDC.put(Constants.REQUEST_ID,requestId);
         return true;
