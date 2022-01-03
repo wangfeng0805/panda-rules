@@ -22,7 +22,12 @@ import org.wangfeng.panda.app.util.StringUtils;
 
 import java.util.*;
 
-@SuppressWarnings("all")
+/**
+ * @author: wangfeng
+ * @version: v1.0
+ * @author: (lastest modification by wangfeng)
+ * @since: 2021-09-26 11:22:43
+ */
 @Service
 @Slf4j
 public class DealOldDataService extends AppBaseService {

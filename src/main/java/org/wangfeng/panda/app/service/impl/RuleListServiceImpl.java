@@ -1,5 +1,6 @@
 package org.wangfeng.panda.app.service.impl;
 
+import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.JSONObject;
 import com.github.pagehelper.Page;
 import lombok.extern.slf4j.Slf4j;
@@ -85,6 +86,7 @@ public class RuleListServiceImpl extends AppBaseService implements RuleListServi
      */
     @Override
     public TCaRuleListVO getById(Long id) {
+        log.info("通过ID得到对应ID的决策集，返回：{}", id);
 
         //0、查询redis中的值
         TCaRuleListVO tCaRuleListVO = null;

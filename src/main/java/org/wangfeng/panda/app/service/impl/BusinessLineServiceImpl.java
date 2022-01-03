@@ -60,7 +60,9 @@ public class BusinessLineServiceImpl extends AppBaseService implements BusinessL
      */
     @Override
     public TCaBusinessLine getById(Long id) {
+        log.info("通过ID查询对应的业务线，开始：{}", id);
         TCaBusinessLine tCaBusinessLine = tCaBusinessLineMapper.getById(id);
+        log.info("通过ID查询对应的业务线，返回：{}", JSON.toJSONString(tCaBusinessLine));
         return tCaBusinessLine;
     }
 
@@ -70,6 +72,7 @@ public class BusinessLineServiceImpl extends AppBaseService implements BusinessL
      */
     @Override
     public void insert(TCaBusinessLine tCaBusinessLine) {
+        log.info("新增业务线，开始：{}", JSON.toJSONString(tCaBusinessLine));
 
         TCaBusinessLine queryBusinessCode = new TCaBusinessLine();
         queryBusinessCode.setBusinessCode(tCaBusinessLine.getBusinessCode());
@@ -112,6 +115,8 @@ public class BusinessLineServiceImpl extends AppBaseService implements BusinessL
      */
     @Override
     public void delete(Long id) {
+        log.info("通过ID逻辑删除对应的业务线，开始：{}", id);
+
         TCaBusinessLine tCaBusinessLine = new TCaBusinessLine();
         tCaBusinessLine.setId(id);
         tCaBusinessLine.setDeleteFlag(Constants.SHORT_ONE);

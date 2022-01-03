@@ -1,5 +1,6 @@
 package org.wangfeng.panda.app.service.impl;
 
+import com.alibaba.fastjson.JSON;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -38,6 +39,7 @@ public class RuleLineServiceImpl extends AppBaseService implements RuleLineServi
      */
     @Override
     public List<TCaRuleLineVO> queryLineListByRuleCode(String ruleCode) {
+        log.info("通过规则CODE查询当前规则对应的所有行，开始：{}", ruleCode);
         //1、查询redis内是否有对应的结果
         List<TCaRuleLineVO> tCaRuleLineVOList = null;
 //        (List<TCaRuleLineVO>)cacheClient.getObject("all_"+RedisInputEnum.RULE_LINE+"_by_rule_code_"+ruleCode);
@@ -60,6 +62,7 @@ public class RuleLineServiceImpl extends AppBaseService implements RuleLineServi
         //4、存入redis
 //        cacheClient.setObject("all_"+RedisInputEnum.RULE_LINE+"_by_rule_code_"+ruleCode,tCaRuleLineVOList);
 //        cacheClient.expire("all_"+RedisInputEnum.RULE_LINE+"_by_rule_code_"+ruleCode, Constants.INTEGER_3600);
+        log.info("通过规则CODE查询当前规则对应的所有行，返回：{}", ruleCode, JSON.toJSONString(tCaRuleLineVOList));
 
         return tCaRuleLineVOList;
     }
